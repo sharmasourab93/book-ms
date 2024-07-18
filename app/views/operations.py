@@ -1,9 +1,11 @@
 from typing import List
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.models.models import BooksT
 from app.schemas.schemas import Book as BookSchema
-from app.schemas.schemas import  BooksReturnTypeSchema
+from app.schemas.schemas import BooksReturnTypeSchema
 
 
 async def insert_book_operation(data: BookSchema, db: AsyncSession) -> bool:

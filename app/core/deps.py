@@ -1,6 +1,7 @@
-from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine
-from app.models.models import Base
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
+
 from app.core.database import async_session, engine
+from app.models.models import Base
 
 
 async def create_all_tables(engine: AsyncEngine = engine):

@@ -1,16 +1,22 @@
 import os
-import uvicorn
 from time import time
+
+import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+
 from app.core.deps import create_all_tables
 from app.models.models import Base
 from app.routes.book_operations import router as book_router
 
-
 APP_TITLE = "Intelligent Book Management System"
-DEBUG= os.environ.get("DEBUG", True)
-CORS_MIDDLEWARE_KWARGS = {"allow_origins": ["*"], "allow_credentials": True, "allow_methods": ["*"], "allow_headers": ["*"]}
+DEBUG = os.environ.get("DEBUG", True)
+CORS_MIDDLEWARE_KWARGS = {
+    "allow_origins": ["*"],
+    "allow_credentials": True,
+    "allow_methods": ["*"],
+    "allow_headers": ["*"],
+}
 
 
 app = FastAPI(title=APP_TITLE, debug=DEBUG)
@@ -32,7 +38,7 @@ async def add_process_header_time(request: Request, call_next):
     start = time()
     response = await call_next(request)
     process_time = time() - start
-    response.headers['X-Process-Time'] = str(process_time)
+    response.headers["X-Process-Time"] = str(process_time)
     return response
 
 
@@ -44,5 +50,5 @@ async def health():
 app.include_router(book_router)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True, workers=3)
