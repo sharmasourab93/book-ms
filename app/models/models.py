@@ -13,9 +13,10 @@ class BooksT(Base):
     title = Column(String)
     author = Column(String)
     genre = Column(String)
-    published_year = Column(Boolean)
+    published_year = Column(Integer)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    re_view = relationship("Reviews", back_populates="book")
 
 
 class Reviews(Base):
@@ -29,4 +30,4 @@ class Reviews(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    book = relationship("BooksT", back_populates="reviews")
+    book = relationship("BooksT", back_populates="re_view")
