@@ -7,7 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 DB_USER = os.environ.get("DB_USER")
-DB_PWD = os.eviron.get("DB_PWD")
+DB_PWD = os.environ.get("DB_PWD")
 DB_HOST = os.environ.get("DB_HOST")
 DB_PORT = os.environ.get("DB_PORT")
 DB = os.environ.get("DB")
