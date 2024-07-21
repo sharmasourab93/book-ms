@@ -7,6 +7,14 @@ from sqlalchemy.orm import relationship
 Base = declarative_base()
 
 
+class Users(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    username = Column(String, unique=True)
+    password = Column(String)
+
+
 class BooksT(Base):
     __tablename__ = "books"
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
