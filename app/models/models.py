@@ -10,7 +10,7 @@ Base = declarative_base()
 class BooksT(Base):
     __tablename__ = "books"
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    title = Column(String)
+    title = Column(String, unique=True)
     author = Column(String)
     genre = Column(String)
     published_year = Column(Integer)
@@ -24,7 +24,7 @@ class Reviews(Base):
     __tablename__ = "reviews"
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     book_id = Column(Integer, ForeignKey("books.id"), nullable=False)
-    user_id = Column(Integer, nullable=False)
+    user_name = Column(String, nullable=False)
     review_text = Column(String)
     rating = Column(Float)
     created_at = Column(DateTime, default=datetime.utcnow)
