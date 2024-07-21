@@ -40,3 +40,8 @@ class ReviewFullSchema(BaseModel):
     review_text: str
     rating: float
     created_at: datetime
+
+
+class UserRegistration(BaseModel):
+    username: str
+    password: str
