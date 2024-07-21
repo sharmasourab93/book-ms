@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel
 
 
@@ -6,6 +7,13 @@ class Book(BaseModel):
     author: str
     genre: str
     published_year: int
+
+
+class ModifyBook(BaseModel):
+    title: Optional[str]
+    author: Optional[str]
+    published_year: Optional[int]
+    genre: Optional[str]
 
 
 class BooksReturnTypeSchema(BaseModel):
