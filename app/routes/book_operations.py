@@ -3,6 +3,7 @@ from fastapi.exceptions import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.deps import get_db_session
+from app.security import token_required
 from app.schemas.schemas import Book, BooksReturnTypeSchema, ModifyBook
 from app.views.operations import (delete_book_by_id, get_all_books,
                                   get_book_id, insert_book_operation,
@@ -11,6 +12,7 @@ from app.views.operations import (delete_book_by_id, get_all_books,
 router = APIRouter(prefix="/books")
 
 
+@token_required
 @router.post("/", tags=["Books"], status_code=status.HTTP_201_CREATED)
 async def post_books(
     body: Book,
@@ -28,6 +30,7 @@ async def post_books(
         return {"status": "Resource couldn't be created."}
 
 
+@token_required
 @router.get("/", tags=["Books"], status_code=status.HTTP_200_OK)
 async def get_books(
     request: Request, response: Response, db: AsyncSession = Depends(get_db_session)
@@ -38,6 +41,7 @@ async def get_books(
     return response
 
 
+@token_required
 @router.get("/{book_id}", tags=["Books"], status_code=status.HTTP_200_OK)
 async def get_books_by_id(
     book_id: int,
@@ -55,6 +59,7 @@ async def get_books_by_id(
     )
 
 
+@token_required
 @router.put("/{book_id}", tags=["Books"], status_code=status.HTTP_200_OK)
 async def update_books(
     book_id: int,
@@ -74,6 +79,7 @@ async def update_books(
     return response
 
 
+@token_required
 @router.delete("/{book_id}", tags=["Books"], status_code=status.HTTP_200_OK)
 async def delete_books(
     book_id: int,

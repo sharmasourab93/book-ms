@@ -20,11 +20,11 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
 
-router = APIRouter(prefix="/")
+router = APIRouter()
 TAG = ["Authentication"]
 
 
-@router.post("register/", tags=TAG, status_code=status.HTTP_201_CREATED)
+@router.post("/register", tags=TAG, status_code=status.HTTP_201_CREATED)
 async def register_user(
     filters: UserRegistration,
     request: Request,
@@ -33,14 +33,15 @@ async def register_user(
 ):
     user = Users(username=filters.username, password=hash_password(filters.password))
 
-    result = await db.execute(user)
+    # result = await db.execute(user)
 
     db.add(user)
     await db.commit()
     await db.refresh(user)
 
+    return {"message": "Resource created."}
 
-@router.post("login/", tags=TAG, status_code=status.HTTP_200_OK)
+@router.post("/login", tags=TAG, status_code=status.HTTP_200_OK)
 async def login_user(
     filter: UserRegistration,
     request: Request,
@@ -48,7 +49,7 @@ async def login_user(
     db: AsyncSession = Depends(get_db_session),
 ):
 
-    user = await db.execute(select(Users).where(Users.username == filter.Username))
+    user = await db.execute(select(Users).where(Users.username == filter.username))
 
     user = user.scalars().one_or_none()
 
