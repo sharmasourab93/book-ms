@@ -28,6 +28,5 @@ class Reviews(Base):
     review_text = Column(String)
     rating = Column(Float)
     created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     book = relationship("BooksT", back_populates="re_view")

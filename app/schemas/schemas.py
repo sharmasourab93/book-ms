@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
 
@@ -24,3 +25,18 @@ class BooksReturnTypeSchema(BaseModel):
     genre: str
     create_at: str
     updated_at: str
+
+
+class ReviewSchema(BaseModel):
+    user_name: str
+    review_text: str
+    rating: str
+
+
+class ReviewFullSchema(BaseModel):
+    id: int
+    book_id: int
+    user_name: str
+    review_text: str
+    rating: float
+    created_at: datetime
