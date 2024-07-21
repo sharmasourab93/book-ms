@@ -41,6 +41,7 @@ async def register_user(
 
     return {"message": "Resource created."}
 
+
 @router.post("/login", tags=TAG, status_code=status.HTTP_200_OK)
 async def login_user(
     filter: UserRegistration,
