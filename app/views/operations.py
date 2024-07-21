@@ -1,6 +1,7 @@
-from typing import List, Optional
 from datetime import datetime
-from sqlalchemy import select, delete
+from typing import List, Optional
+
+from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.models import BooksT
@@ -37,8 +38,9 @@ async def get_book_id(book_id: int, db: AsyncSession) -> BooksReturnTypeSchema:
     return book
 
 
-async def update_book_by_id(book_id: int, book: BookSchema, db: AsyncSession) -> (
-        Optional[BooksReturnTypeSchema]):
+async def update_book_by_id(
+    book_id: int, book: BookSchema, db: AsyncSession
+) -> Optional[BooksReturnTypeSchema]:
 
     result = await db.execute(select(BooksT).where(BooksT.id == book_id))
 
@@ -47,13 +49,20 @@ async def update_book_by_id(book_id: int, book: BookSchema, db: AsyncSession) ->
     if exisiting_book is None:
         return None
 
-    exisiting_book.title = book.title if book.title is not None else (
-        exisiting_book.title)
-    exisiting_book.author = book.author if book.author is not None else (
-        exisiting_book.author)
-    exisiting_book.genre = book.genre if book.genre is not None else exisiting_book.genre
-    exisiting_book.published_year = book.published_year if book.published_year is not None else (
-        exisiting_book.published_year)
+    exisiting_book.title = (
+        book.title if book.title is not None else (exisiting_book.title)
+    )
+    exisiting_book.author = (
+        book.author if book.author is not None else (exisiting_book.author)
+    )
+    exisiting_book.genre = (
+        book.genre if book.genre is not None else exisiting_book.genre
+    )
+    exisiting_book.published_year = (
+        book.published_year
+        if book.published_year is not None
+        else (exisiting_book.published_year)
+    )
     exisiting_book.updated_at = datetime.utcnow()
 
     db.add(exisiting_book)
