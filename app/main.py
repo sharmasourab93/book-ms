@@ -9,6 +9,8 @@ from app.core.deps import create_all_tables
 from app.models.models import Base
 from app.routes.book_operations import router as book_router
 from app.routes.review_operations import router as review_router
+from app.routes.summary import router as summary_router
+from app.routes.recommendations import router as reco_router
 
 APP_TITLE = "Intelligent Book Management System"
 DEBUG = os.environ.get("DEBUG", True)
@@ -48,8 +50,8 @@ async def health():
     return {"message": "App Up & Running."}
 
 
-app.include_router(book_router)
-app.include_router(review_router)
+for route in (book_router, review_router, summary_router, reco_router):
+    app.include_router(route)
 
 
 if __name__ == "__main__":
