@@ -16,13 +16,14 @@ async def insert_reviews_by_id(book_id: int,
                                db: AsyncSession) -> Optional[ReviewFullSchema]:
 
     book = await db.execute(select(BooksT).where(BooksT.id == book_id))
-    book = result.scalars().one_or_none()
+    book = book.scalars().one_or_none()
 
     if book is None:
         return None
 
-    review = Reviews(book_id=book_id, user_name=user_name, review_text=review_text,
-                     rating=rating)
+    review = Reviews(book_id=book_id, user_name=body.user_name,
+                     review_text=body.review_text,
+                     rating=body.rating)
     db.add(review)
     await db.commit()
     await db.refresh(review)

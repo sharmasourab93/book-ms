@@ -10,7 +10,7 @@ from app.views.review_operations import insert_reviews_by_id, get_reviews_by_id,
 router = APIRouter(prefix="/books/{book_id}")
 
 
-@router.post("/reviews", status_code=status.HTTP_201_CREATED)
+@router.post("/reviews", tags=["Reviews"], status_code=status.HTTP_201_CREATED)
 async def post_reviews(book_id: int, body: ReviewSchema,
                        request: Request, response: Response,
                        db: AsyncSession = Depends(get_db_session)):
@@ -24,13 +24,13 @@ async def post_reviews(book_id: int, body: ReviewSchema,
     return response
 
 
-@router.get("/reviews", status_code=status.HTTP_200_OK)
+@router.get("/reviews", tags=["Reviews"], status_code=status.HTTP_200_OK)
 async def get_reviews(book_id: int, request: Request, response: Response,
                       db: AsyncSession = Depends(get_db_session)):
     return await get_reviews_by_id(book_id, db)
 
 
-@router.get("/summary", status_code=status.HTTP_200_OK)
+@router.get("/summary", tags=["Reviews"], status_code=status.HTTP_200_OK)
 async def get_summaries(book_id: int, request: Request, response: Response,
                         db: AsyncSession = Depends(get_db_session)):
     return await get_summary(book_id, db)

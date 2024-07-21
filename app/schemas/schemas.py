@@ -30,7 +30,7 @@ class BooksReturnTypeSchema(BaseModel):
 class ReviewSchema(BaseModel):
     user_name: str
     review_text: str
-    rating: str
+    rating: float
 
 
 class ReviewFullSchema(BaseModel):

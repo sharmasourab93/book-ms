@@ -11,7 +11,9 @@ from app.views.operations import (get_all_books, insert_book_operation,
 router = APIRouter(prefix="/books")
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/",
+             tags=["Books"],
+             status_code=status.HTTP_201_CREATED)
 async def post_books(
     body: Book,
     request: Request,
@@ -28,7 +30,7 @@ async def post_books(
         return {"status": "Resource couldn't be created."}
 
 
-@router.get("/", status_code=status.HTTP_200_OK)
+@router.get("/", tags=["Books"], status_code=status.HTTP_200_OK)
 async def get_books(
     request: Request, response: Response, db: AsyncSession = Depends(get_db_session)
 ):
@@ -38,7 +40,7 @@ async def get_books(
     return response
 
 
-@router.get("/{book_id}", status_code=status.HTTP_200_OK)
+@router.get("/{book_id}", tags=["Books"], status_code=status.HTTP_200_OK)
 async def get_books_by_id(book_id: int,
                           request: Request,
                           response: Response,
@@ -52,7 +54,7 @@ async def get_books_by_id(book_id: int,
                                                                       "Found.")
 
 
-@router.put("/{book_id}", status_code=status.HTTP_200_OK)
+@router.put("/{book_id}", tags=["Books"], status_code=status.HTTP_200_OK)
 async def update_books(book_id: int,
                        filters: ModifyBook,
                        request: Request, response: Response,
@@ -67,7 +69,7 @@ async def update_books(book_id: int,
     return response
 
 
-@router.delete("/{book_id}", status_code=status.HTTP_200_OK)
+@router.delete("/{book_id}", tags=["Books"], status_code=status.HTTP_200_OK)
 async def delete_books(book_id: int, request: Request, response: Response,
                        db: AsyncSession = Depends(get_db_session)):
 
