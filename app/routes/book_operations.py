@@ -27,8 +27,10 @@ async def post_books(
         return {"status": "Resource Created."}
 
     else:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail="Resource couldn't be created.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Resource couldn't be created.",
+        )
 
 
 @token_required
