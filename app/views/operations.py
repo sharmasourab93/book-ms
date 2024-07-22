@@ -17,6 +17,7 @@ async def insert_book_operation(data: BookSchema, db: AsyncSession) -> bool:
         db.add(book)
         await db.commit()
         await db.refresh(book)
+        result = await db.execute(select(BooksT).where(BooksT.author == data.author))
         return True
 
     except Exception as e:
