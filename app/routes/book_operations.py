@@ -1,13 +1,16 @@
-from fastapi import APIRouter, Depends, Request, Response, status
-from fastapi.exceptions import HTTPException
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from app.core.deps import get_db_session
 from app.schemas.schemas import Book, BooksReturnTypeSchema, ModifyBook
 from app.security import token_required
-from app.views.operations import (delete_book_by_id, get_all_books,
-                                  get_book_id, insert_book_operation,
-                                  update_book_by_id)
+from app.views.operations import (
+    delete_book_by_id,
+    get_all_books,
+    get_book_id,
+    insert_book_operation,
+    update_book_by_id,
+)
+from fastapi import APIRouter, Depends, Request, Response, status
+from fastapi.exceptions import HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter(prefix="/books")
 

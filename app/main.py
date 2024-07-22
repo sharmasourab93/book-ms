@@ -2,9 +2,6 @@ import os
 from time import time
 
 import uvicorn
-from fastapi import FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware
-
 from app.core.deps import create_all_tables
 from app.models.models import Base
 from app.routes.book_operations import router as book_router
@@ -12,6 +9,8 @@ from app.routes.recommendations import router as reco_router
 from app.routes.review_operations import router as review_router
 from app.routes.summary import router as summary_router
 from app.routes.user import router as user_router
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 
 APP_TITLE = "Intelligent Book Management System"
 DEBUG = os.environ.get("DEBUG", True)

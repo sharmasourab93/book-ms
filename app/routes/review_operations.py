@@ -1,12 +1,14 @@
-from fastapi import APIRouter, Depends, Request, Response, status
-from fastapi.exceptions import HTTPException
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from app.core.deps import get_db_session
 from app.schemas.schemas import ReviewSchema
 from app.security import token_required
-from app.views.review_operations import (get_reviews_by_id, get_summary,
-                                         insert_reviews_by_id)
+from app.views.review_operations import (
+    get_reviews_by_id,
+    get_summary,
+    insert_reviews_by_id,
+)
+from fastapi import APIRouter, Depends, Request, Response, status
+from fastapi.exceptions import HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter(prefix="/books/{book_id}")
 

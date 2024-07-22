@@ -1,13 +1,12 @@
+from app.core.deps import get_db_session
+from app.models.models import Users
+from app.schemas.schemas import UserRegistration
+from app.security import create_access_token
 from fastapi import APIRouter, Depends, Request, Response, status
 from fastapi.exceptions import HTTPException
 from passlib.context import CryptContext
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from app.core.deps import get_db_session
-from app.models.models import Users
-from app.schemas.schemas import UserRegistration
-from app.security import create_access_token
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

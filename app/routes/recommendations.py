@@ -1,7 +1,6 @@
+from app.core.deps import get_db_session
 from fastapi import APIRouter, Depends, Request, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from app.core.deps import get_db_session
 
 router = APIRouter(prefix="/recommendation")
 
