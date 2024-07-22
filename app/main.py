@@ -11,6 +11,7 @@ from app.routes.summary import router as summary_router
 from app.routes.user import router as user_router
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from mangum import Mangum
 
 APP_TITLE = "Intelligent Book Management System"
 DEBUG = os.environ.get("DEBUG", True)
@@ -23,6 +24,7 @@ CORS_MIDDLEWARE_KWARGS = {
 
 
 app = FastAPI(title=APP_TITLE, debug=DEBUG)
+handler = Mangum(app)
 app.add_middleware(CORSMiddleware, **CORS_MIDDLEWARE_KWARGS)
 
 
