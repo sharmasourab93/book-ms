@@ -22,7 +22,8 @@ jobs:
 
       - name: Log in to Amazon ECR
         run: |
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin public.ecr.aws/z7d7p9s0
+            echo "Logging in to public ECR..."
+            aws ecr-public get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin public.ecr.aws/z7d7p9s0
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
