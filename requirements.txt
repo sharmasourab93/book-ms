@@ -6,4 +6,4 @@ sqlalchemy[asyncio]==1.4.52
 pytest==8.3.1
 pytest-asyncio==0.23.1
 passlib[bcrypt]==1.7.4
-python-jose==3.3.
+python-jose==3.3.0
