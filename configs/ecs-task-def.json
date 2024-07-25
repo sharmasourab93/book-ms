@@ -1,0 +1,38 @@
+{
+  "family": "marshallinc-task",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "marshallinc",
+      "image": "public.ecr.aws/z7d7p9s0/marshallinc:latest",
+      "memory": 512,
+      "cpu": 256,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "NODE_ENV",
+          "value": "testing"
+        }
+      ]
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "healthCheck": {
+    "command": ["CMD-SHELL", "curl -f http://localhost/ || exit 1"],
+    "interval": 30,
+    "timeout": 5,
+    "retries": 3,
+    "startPeriod": 60
+  },
+  "cpu": "256",
+  "memory": "512"
+}
