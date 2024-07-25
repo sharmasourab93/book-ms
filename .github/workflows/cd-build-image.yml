@@ -50,18 +50,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Update ECS task definition
-        id: update-task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: configs/ecs-task-def.json
-          container-name: marshallinc
-          image: public.ecr.aws/z7d7p9s0/marshallinc:latest
+      - name: Update task definition image
+        run: |
+          sed -i 's|\"image\": \"public.ecr.aws/z7d7p9s0/marshallinc:.*\"|\"image\": \"public.ecr.aws/z7d7p9s0/marshallinc:latest\"|' ecs-task-def.json
 
-      - name: Deploy to Amazon ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.update-task-def.outputs.task-definition }}  # Use the updated task definition
-          service: bookmsservice
-          cluster: book-ms-cluster-1
-          wait-for-service-stability: true  # Wait for the service to stabilize
+      - name: Register new task definition
+        run: |
+          aws ecs register-task-definition --cli-input-json file://configs/ecs-task-def.json
+
+      - name: Update ECS service
+        run: |
+          aws ecs update-service --cluster book-ms-cluster-1 --service bookmsservice --task-definition book-ms-app --force-new-deployment
