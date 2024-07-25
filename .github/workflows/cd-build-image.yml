@@ -52,7 +52,8 @@ jobs:
 
       - name: Update task definition image
         run: |
-          sed -i 's|\"image\": \"public.ecr.aws/z7d7p9s0/marshallinc:.*\"|\"image\": \"public.ecr.aws/z7d7p9s0/marshallinc:latest\"|' ecs-task-def.json
+          sed -i 's|\"image\": \"public.ecr.aws/z7d7p9s0/marshallinc:.*\"|\"image\": 
+          \"public.ecr.aws/z7d7p9s0/marshallinc:latest\"|' configs/ecs-task-def.json
 
       - name: Register new task definition
         run: |
