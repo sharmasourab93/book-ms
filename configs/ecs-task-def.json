@@ -1,31 +1,99 @@
 {
-  "family": "marshallinc-task",
-  "networkMode": "awsvpc",
-  "containerDefinitions": [
-    {
-      "name": "marshallinc",
-      "image": "public.ecr.aws/z7d7p9s0/marshallinc:latest",
-      "memory": 512,
-      "cpu": 256,
-      "essential": true,
-      "portMappings": [
+    "taskDefinitionArn": "arn:aws:ecs:ap-southeast-2:637423368177:task-definition/book-ms-app:3",
+    "containerDefinitions": [
         {
-          "containerPort": 80,
-          "hostPort": 80,
-          "protocol": "tcp"
+            "name": "book-ms-webapp",
+            "image": "public.ecr.aws/z7d7p9s0/marshallinc",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp",
+                    "name": "book-ms-webapp-80-tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "DB_PWD",
+                    "value": "marshall93"
+                },
+                {
+                    "name": "DB_HOST",
+                    "value": "sourab-db-1.c7qy06y0snr7.ap-southeast-2.rds.amazonaws.com"
+                },
+                {
+                    "name": "DB_PORT",
+                    "value": "5432"
+                },
+                {
+                    "name": "DB",
+                    "value": "books"
+                },
+                {
+                    "name": "DB_USER",
+                    "value": "postgres"
+                }
+            ],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/book-ms-app",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "ap-southeast-2",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
         }
-      ],
-      "environment": [
+    ],
+    "family": "book-ms-app",
+    "executionRoleArn": "arn:aws:iam::637423368177:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "revision": 3,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
         {
-          "name": "NODE_ENV",
-          "value": "testing"
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
         }
-      ]
-    }
-  ],
-  "requiresCompatibilities": [
-    "FARGATE"
-  ],
-  "cpu": "256",
-  "memory": "512"
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "3072",
+    "registeredAt": "2024-07-23T15:42:55.347000+00:00",
+    "registeredBy": "arn:aws:iam::637423368177:root"
 }
