@@ -60,4 +60,4 @@ jobs:
 
       - name: Update ECS service
         run: |
-          aws ecs update-service --cluster book-ms-cluster-1 --service bookmsservice --task-definition book-ms-app --force-new-deployment
+          aws ecs update-service --cluster book-ms-cluster-1 --service bookmsservice --task-definition book-ms-app --force-new-deployment --region ap-southeast-2
