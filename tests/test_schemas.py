@@ -1,6 +1,7 @@
 # tests/test_schemas.py
 
 import pytest
+
 from app.schemas.schemas import Book, ModifyBook
 
 
@@ -20,7 +21,12 @@ def test_valid_book_schema():
 
 def test_invalid_book_schema():
     with pytest.raises(ValueError):
-        Book(title="Invalid Book", author="Author", genre="Genre", published_year="not_a_year")  # Should raise an error
+        Book(
+            title="Invalid Book",
+            author="Author",
+            genre="Genre",
+            published_year="not_a_year",
+        )  # Should raise an error
 
 
 def test_modify_book_schema():
